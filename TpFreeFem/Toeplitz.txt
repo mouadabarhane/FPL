@@ -1,0 +1,35 @@
+int n;
+int i;
+int j;
+cout << "Donner la taille de la matrice "<< endl;
+cin >> n ; 
+int [int] l=(n);
+int [int] c=(n);
+real [int,int]Toeplitz(n,n);
+for(i=0;i<n;i++){
+cout << "Donner l(" << i<<")" << endl ;
+cin>> l(i) ; 
+}
+cout << "Le vecteur est " <<"l=" << l << endl ;
+c(0)=l(0);
+for(j=1;j<n;j++){
+cout << "Donner c("<< j << ")"<<endl ;
+cin >> c(j) ;
+}
+cout << "Le vecteur est " << "c=" << c <<endl;
+
+Toeplitz=0;
+cout << "La matrice Toeplitz est " << "Toeplitz =" << Toeplitz<< endl ;
+for(i=0;i<n;j++){
+for(j=0;j<n;j++){
+if(i==0){
+Toeplitz(j,i)=l(j);
+Toeplitz(i,j)=c(j);
+}
+if(i<n-1 && j<n-1)
+{
+Toeplitz(i+1,j+1)=Toeplitz(i,j);
+}
+}
+}
+cout << "La matric Toeplitz est " << "Toeplitz=" <<Toeplitz << endl;

@@ -1,0 +1,44 @@
+int n,i,j,k;
+real d ;
+cout << "Donner la taille de la matrice " << endl;
+cin >>n;
+real [int,int] A(n,n);
+real [int,int] L(n,n);
+real [int,int] U(n,n);
+L=0;
+for(i=0;i<n;i++) L(i,i)=1;
+int [int] Y=(n);
+Y=0;
+int [int] X=(n);
+X=0;
+int [int] B=(n);
+B=0;
+for (i=0;i<n;i++){
+for (j=0;j<n;j++){
+cout <<"Donner A("<<i+1<<","<<j+1<<")"<<endl;
+cin >> A(i,j);
+}
+}
+cout << "A="<<A<<endl;
+for(i=0;i<n;i++){
+cout <<"Donner B("<<i+1<<")"<<endl;
+cin >> B(i);
+}
+ cout << "B="<< B<< endl;
+U=A;
+for (k=0;k<=n-1;k++)
+{
+L(k+1:n-1,k)=U(k+1:n-1,k)*(1/U(k,k));
+for (j=k+1;j<=n-1;j++)
+{
+U(j,k:n-1)=U(j,k:n-1)-(L(j,k)*U(k,k:n-1));
+}
+}
+for(i=0;i<n;i++){
+for(j=0;j<n;j++){
+if(i>j)U(i,j)=0;
+}
+}
+cout << "L="<<L<<"U="<<U<<endl;
+
+

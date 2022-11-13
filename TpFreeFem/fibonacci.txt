@@ -1,0 +1,38 @@
+int u0= 0,u1=1,n,i,un;
+cout << "Donner le nobre "<<endl;
+cin >> n;
+int [int]v=(n);
+v(0)=u0;
+v(1)=u1;
+cout << "le terme u(0)="<<u0<<endl;
+cout << "le terme u(1)="<<u1<<endl; 
+for(i=2;i<n;i++){
+un=u0+u1;
+u0=u1;
+u1=un;
+cout << "le terme u("<<i<<")="<<un<<endl;
+v(i)=un;
+}
+cout << "le vecteur v de dimension n= " <<v<<endl;
+{
+ofstream fout ("data_Tp.dat");
+int u0=0 , u1=1 , n,i,un;
+cout << "donner le nombre n " << endl;
+cin >> n;
+int [int]v(n);
+v[0]=u0;
+v[1]=u1;
+fout << v(0)<< ""<<u0<<endl;
+fout << v(1)<< ""<<u1<<endl;
+int sum =1;
+for (i=2;i<n;i++)
+{
+un=u0+u1;
+u0=u1;
+u1=un;
+sum+= un ;
+v[i]=un ;
+fout <<v(i)<<""<<un<<endl;
+}
+cout <<"la somme est"<<sum<<endl;
+}

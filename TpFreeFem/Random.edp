@@ -1,0 +1,11 @@
+load "ffrandom"
+ srandomdev(); 
+int maxrang = 2^31 - 1;
+cout << " max range " << maxrang << endl;
+cout << random() << endl;
+cout << random() << endl;
+cout << random() << endl;
+srandom(10);
+cout << random() << endl;
+cout << random() << endl;
+cout << random() << endl;

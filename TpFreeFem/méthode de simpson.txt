@@ -1,0 +1,39 @@
+int n,i;
+real a,b,I2,h;
+cout << "entrer la valeur de a "<< endl;
+cin>>a;
+cout << "entrer la valeur de b "<< endl;
+cin>>b;
+cin>> b;
+
+if(a>b){
+cout<<"erreue"<<endl;
+}
+
+else {
+cout << "Entrer le nombre de subdivision n " << endl;
+cin>> n;
+cout << endl;
+
+func real f(real x){
+return cos(x);
+}
+
+h=(b-a)/n;
+int k ;
+I2=(f(a)+f(b))*h/3;
+for(k=1;k<=n-1;k++)
+{
+if (k%2==0){
+I2+=(f(a+(k*h)))*(2*h)/3;
+}  
+else
+{
+I2+=(f(a+(k*h)))*(4*h)/3;
+}
+}
+cout << "le nombre de subdivion est n=" << n<< endl;
+cout << endl;
+cout << "l'integrale par la methode de Simpson sur ["<< a<< ","<<b<<"] egale "<< I2<< endl;
+cout << endl ;
+}

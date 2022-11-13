@@ -1,0 +1,28 @@
+load "lapack"
+load "fflapack"
+load "ffrandom"
+srandomdev();
+int a,b;
+real c,d,e,r,f;
+
+a = randint31();
+cout <<"a="<<a<<endl;
+ 
+b = randint32();
+cout <<"b="<<b<<endl;
+
+c = randreal1();
+cout <<"c="<<c<<endl;
+ 
+
+d = randreal2();
+cout <<"d="<<d<<endl;
+
+e = randres53();
+cout <<"e="<<e<<endl;
+
+r = randreal3();
+cout <<"r="<<r<<endl;
+
+f = abs(randint32()%2);
+cout <<"f=" << f <<endl;

@@ -1,0 +1,19 @@
+int n, u0 = 0, u1 = 1, fibonacci , som , i;
+cout << "Enter the number of terms: ";
+cin >> n;
+som = 1 ;
+for (int i = 0; i <= n; ++i) {
+    if(i <= 1) {
+     fibonacci = i ;
+     som = i ;
+  }
+    else
+   {
+     fibonacci = u0 + u1;
+     u0 = u1;
+     u1 = fibonacci;
+     som += fibonacci ;
+    }
+     cout << "u(" << i <<")" << "="  <<fibonacci << endl;
+}
+cout << som << endl;

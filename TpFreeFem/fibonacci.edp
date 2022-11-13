@@ -1,0 +1,96 @@
+cout << "\n";
+cout << "gnuplot_contour:\n";
+cout << "  FreeFem++ version\n";
+cout << "  Demonstrate how to write data that GNUPLOT can use\n";
+cout << "  to make a contour plot of the solution.\n";
+//
+//  Define Gamma1 and Gamma2, the boundaries.
+//  A and B are the lengths of the semimajor and semiminor axes:
+//  THETA specifies the angle at which we switch from GAMMA1 to GAMMA2.
+//
+real a = 2.0;
+real b = 1.0;
+real theta = 4.0 * pi / 3.0;
+border Gamma1 ( t = 0, theta )    { x = a * cos(t); y = b*sin(t); }
+border Gamma2 ( t = theta, 2*pi ) { x = a * cos(t); y = b*sin(t); }
+//
+//  Th: the triangulation of the "left" side of the boundaries.
+//
+mesh Th = buildmesh ( Gamma1(100) + Gamma2(50) );
+//
+//  Plot the mesh.
+//
+plot ( Th, wait = false, ps = "gnuplot_contour_mesh.ps" );
+//
+//  Define Vh, the finite element space defined over Th, using P2 basis functions.
+//
+fespace Vh ( Th, P2 );
+//
+//  Define U, V, and F, piecewise P2 continuous functions over Th.
+//  F is a constant function.
+//
+Vh u;
+Vh v;
+Vh f = 1.0;
+//
+//  Define G, a function for the Dirichlet boundary conditions.
+//
+func g = x;
+//
+//  Define the weak form of the PDE.
+//
+problem poisson ( u, v ) 
+  = int2d ( Th ) ( dx(u)*dx(v) + dy(u)*dy(v) )
+  - int2d ( Th ) ( f * v ) 
+  + on ( Gamma1, u = g );
+//
+//  Solve the PDE.
+//
+poisson;
+//
+//  Write gnuplot data.
+//
+ofstream dataunit ( "gnuplot_contour_data.txt" );
+for ( int i = 0; i < Th.nt; i++ )
+{
+  for ( int j = 0; j <= 3; j++ )
+  {
+    int jj = ( j % 3 );
+    dataunit << "  " << Th[i][jj].x 
+             << "  " << Th[i][jj].y
+             << "  " << u[][Vh(i,jj)] << "\n";
+  }
+}
+//
+//  Write gnuplot commands.
+//
+ofstream commandunit ( "gnuplot_contour_commands.txt" );
+commandunit << "# gnuplot_contour_commands.txt\n";
+commandunit << "# usage: gnuplot < gnuplot_contour_commands.txt\n";
+commandunit << "#\n";
+commandunit << "set term png\n";
+commandunit << "set size ratio -1\n";
+commandunit << "set output 'gnuplot_contour.png'\n";
+commandunit << "set pm3d\n";
+commandunit << "unset surface\n";
+commandunit << "set view map\n";
+commandunit << "set contour\n";
+commandunit << "set nokey\n";
+commandunit << "set cntrparam cubicspline  # smooth out the lines\n";
+commandunit << "set cntrparam levels 50    # sets the num of contour lines\n";
+commandunit << "set pm3d interpolate 20,20 # interpolate the color\n";
+commandunit << "set palette model RGB defined ( 0'black', 1'blue', 2'cyan',3'green',4'yellow',5'red',8'purple' )\n";
+commandunit << "set xlabel '<--X-->'\n";
+commandunit << "set ylabel '<--Y-->'\n";
+commandunit << "set title 'Solution contours'\n";
+commandunit << "set timestamp\n";
+commandunit << "set dgrid3d 10, 10, 1\n";
+commandunit << "splot 'gnuplot_contour_data.txt' with lines lt 1\n";
+//
+//  Terminate.
+//
+cout << "\n";
+cout << "gnuplot_contour:\n";
+cout << "  Normal end of execution.\n";
+
+exit ( 0 );
